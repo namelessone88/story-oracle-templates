@@ -1,0 +1,54 @@
+name: publish
+on:
+  issues:
+    types: [labeled]
+  push:
+    branches: [main]
+    paths: ['templates/**', 'tags.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.event_name != 'issues' || (github.event.label.name == 'approved' && github.event.sender.login == github.repository_owner)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Apply every open approved submission
+        id: apply
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/publish.mjs apply
+      - name: Build library
+        run: node scripts/publish.mjs build
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add templates dist
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "publish: ${{ steps.apply.outputs.id || 'rebuild' }}"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Purge jsDelivr cache
+        run: |
+          curl -fsS "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/dist/library.json" || true
+          curl -fsS "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/tags.json" || true
+      - name: Report on the issue
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/publish.mjs report

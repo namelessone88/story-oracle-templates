@@ -1,0 +1,10 @@
+name = "so-template-hub"
+main = "index.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+REPO = "namelessone88/story-oracle-templates"
+
+[[kv_namespaces]]
+binding = "RL"
+id = "SET_IN_TASK_10"

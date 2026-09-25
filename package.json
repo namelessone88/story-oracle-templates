@@ -1,0 +1,7 @@
+{
+  "name": "story-oracle-templates",
+  "private": true,
+  "type": "module",
+  "description": "故事神谕 模板广场：共享的自定义校正模板（纯文本）",
+  "scripts": { "test": "node --test" }
+}
