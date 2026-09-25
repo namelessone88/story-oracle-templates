@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-25T05:27:23.465Z",
+  "generatedAt": "2026-09-25T08:57:12.369Z",
   "tags": [
     "去AI味",
     "润色文风",
@@ -11,19 +11,5 @@
     "精简",
     "其他"
   ],
-  "templates": [
-    {
-      "id": "t0001",
-      "name": "test",
-      "author": "Prince",
-      "description": "test",
-      "tags": [
-        "其他"
-      ],
-      "model": "Opus5.5",
-      "version": 1,
-      "updatedAt": "2026-09-25",
-      "prompt": "test"
-    }
-  ]
+  "templates": []
 }
