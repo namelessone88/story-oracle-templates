@@ -1,0 +1,15 @@
+{
+  "name": "test",
+  "author": "Prince",
+  "description": "test",
+  "tags": [
+    "其他"
+  ],
+  "model": "Opus5.5",
+  "version": 1,
+  "createdAt": "2026-09-25",
+  "updatedAt": "2026-09-25",
+  "sourceIssues": [
+    1
+  ]
+}
