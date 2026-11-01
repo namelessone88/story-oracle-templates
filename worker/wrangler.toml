@@ -1,10 +1,15 @@
-name = "so-template-hub"
+# 模板广场 Worker（2026-11-01 起全在 Cloudflare，不碰 GitHub）。设计稿：
+# SillyTavern/docs/superpowers/specs/2026-11-01-template-hub-cloudflare-design.md
+# 新名字 so-templates（不复用旧的 so-template-hub：那个在另一个账号上、还绑着旧的 GH_TOKEN 密钥）。
+# 只走自定义域名；workers.dev 关闭。密钥：ADMIN_TOKEN（Prince 在真终端里设）、SALT。
+name = "so-templates"
 main = "index.js"
 compatibility_date = "2026-09-01"
-
-[vars]
-REPO = "namelessone88/story-oracle-templates"
+workers_dev = false
+routes = [
+  { pattern = "templates.fabschoolcard.bid", custom_domain = true }
+]
 
 [[kv_namespaces]]
-binding = "RL"
-id = "b4be2490c0074626bd4be1afcd92b6c6"
+binding = "HUB"
+id = "4b1adbc4401749c1847fd8f8ed7b3280"   # 首次部署前由 `wrangler kv namespace create HUB` 生成
